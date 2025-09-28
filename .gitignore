@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.poetry-cache/
+.env
+.venv/
+node_modules/
+web/viewer/node_modules/
+web/viewer/dist/
+.DS_Store
+.idea/
+.vscode/

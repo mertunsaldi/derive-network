@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Poetry
+        run: pip install poetry==1.7.1
+      - name: Install dependencies
+        run: poetry install
+      - name: Run Ruff
+        run: poetry run ruff check .
+      - name: Run MyPy
+        run: poetry run mypy src services examples tests
+      - name: Run tests
+        run: poetry run pytest
