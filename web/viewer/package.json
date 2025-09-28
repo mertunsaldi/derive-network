@@ -1,0 +1,18 @@
+{
+  "name": "derivation-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cytoscape": "^3.28.0",
+    "mathjax": "^3.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vite": "^5.1.0"
+  }
+}
