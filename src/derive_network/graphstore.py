@@ -55,6 +55,11 @@ class GraphStore:
     def get_statement(self, statement_id: str) -> Optional[Statement]:
         return self._statements.get(statement_id)
 
+    def list_statements(self) -> List[Statement]:
+        """Return all statements currently stored in the graph."""
+
+        return sorted(self._statements.values(), key=lambda statement: statement.id)
+
     def add_derivation(
         self,
         derivation: Derivation,
@@ -77,6 +82,11 @@ class GraphStore:
     def get_derivation(self, derivation_id: str) -> Optional[Derivation]:
         return self._derivations.get(derivation_id)
 
+    def list_derivations(self) -> List[Derivation]:
+        """Return all derivations currently stored in the graph."""
+
+        return sorted(self._derivations.values(), key=lambda derivation: derivation.id)
+
     def add_relation(
         self,
         relation_type: str,
@@ -90,6 +100,28 @@ class GraphStore:
         if target not in self._graph:
             raise KeyError(f"Unknown target node: {target}")
         self._graph.add_edge(source, target, type=relation_type, **(attributes or {}))
+
+    def list_relations(self) -> List[Relation]:
+        """Return a snapshot of the edges in the graph store."""
+
+        relations: List[Relation] = []
+        for source, target, data in self._graph.edges(data=True):
+            relation_type = data.get("type", "")
+            attributes = {
+                key: value
+                for key, value in data.items()
+                if key != "type"
+            }
+            relations.append(
+                Relation(
+                    source=source,
+                    target=target,
+                    type=relation_type,
+                    attributes=attributes,
+                )
+            )
+        relations.sort(key=lambda relation: (relation.type, relation.source, relation.target))
+        return relations
 
     def shortest_path(
         self,
