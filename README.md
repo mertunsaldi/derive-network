@@ -23,6 +23,16 @@ make install
 make test
 ```
 
+### Launch the interactive playground (no Docker required)
+
+```bash
+poetry run python examples/playground_ui.py
+```
+
+This Tkinter UI exposes a "click and play" way to experiment with the
+canonicalizer, run expression equivalence checks, and build in-memory graph
+scenarios without starting any Docker services.
+
 ### Lint and type-check
 
 ```bash
